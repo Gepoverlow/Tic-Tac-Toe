@@ -14,7 +14,7 @@ const gameBoard = (() => {
   let gameBoardArray = ["", "", "", "", "", "", "", "", ""];
   //
   let gameContainer = document.querySelector(".container-game");
-  let tableContainer = document.querySelector(".table");
+  let tableContainer = document.querySelector(".container-table");
 
   //
   function createBlock() {
@@ -48,9 +48,63 @@ const displayController = (() => {
   let playerOne;
   let playerTwo;
   //
+  function playerMove() {
+    for (let i = 0; i < allBlocks.length; i++) {
+      let eachBlock = allBlocks[i];
+      eachBlock.addEventListener("click", function () {
+        if (gameBoard.gameBoardArray[i] === "") {
+          gameBoard.gameBoardArray.splice(i, 1, game ? "O" : "X");
+          console.log(gameBoard.gameBoardArray);
+          gameBoard.renderValues(gameBoard.gameBoardArray);
+          game = !game;
+          checkWinner(gameBoard.gameBoardArray);
+        }
+      });
+    }
+  }
+  //
+  playerMove();
+  //
+  function checkWinner(arr) {
+    if (arr[0] === "X" && arr[1] === "X" && arr[2] === "X") {
+      console.log("X WINS");
+    } else if (arr[3] === "X" && arr[4] === "X" && arr[5] === "X") {
+      console.log("X WINS");
+    } else if (arr[6] === "X" && arr[7] === "X" && arr[8] === "X") {
+      console.log("X WINS");
+    } else if (arr[0] === "X" && arr[3] === "X" && arr[6] === "X") {
+      console.log("X WINS");
+    } else if (arr[1] === "X" && arr[4] === "X" && arr[7] === "X") {
+      console.log("X WINS");
+    } else if (arr[2] === "X" && arr[5] === "X" && arr[8] === "X") {
+      console.log("X WINS");
+    } else if (arr[0] === "X" && arr[4] === "X" && arr[8] === "X") {
+      console.log("X WINS");
+    } else if (arr[2] === "X" && arr[4] === "X" && arr[6] === "X") {
+      console.log("X WINS");
+    } else if (arr[0] === "O" && arr[1] === "O" && arr[2] === "O") {
+      console.log("O WINS");
+    } else if (arr[3] === "O" && arr[4] === "O" && arr[5] === "O") {
+      console.log("O WINS");
+    } else if (arr[6] === "O" && arr[7] === "O" && arr[8] === "O") {
+      console.log("O WINS");
+    } else if (arr[0] === "O" && arr[3] === "O" && arr[6] === "O") {
+      console.log("O WINS");
+    } else if (arr[1] === "O" && arr[4] === "O" && arr[7] === "O") {
+      console.log("O WINS");
+    } else if (arr[2] === "O" && arr[5] === "O" && arr[8] === "O") {
+      console.log("O WINS");
+    } else if (arr[0] === "O" && arr[4] === "O" && arr[8] === "O") {
+      console.log("O WINS");
+    } else if (arr[2] === "O" && arr[4] === "O" && arr[6] === "O") {
+      console.log("O WINS");
+    }
+  }
+  //
   playButton.addEventListener("click", function () {
     let inputOne = document.getElementById("input-one").value;
     let inputTwo = document.getElementById("input-two").value;
+    //
     let playerOneName = document.getElementById("player1");
     let playerTwoName = document.getElementById("player2");
     //
@@ -65,23 +119,6 @@ const displayController = (() => {
     //
   });
   //
-  //
-  function playerMove() {
-    for (let i = 0; i < allBlocks.length; i++) {
-      let eachBlock = allBlocks[i];
-      eachBlock.addEventListener("click", function () {
-        if (gameBoard.gameBoardArray[i] === "") {
-          gameBoard.gameBoardArray.splice(i, 1, game ? "O" : "X");
-          console.log(gameBoard.gameBoardArray);
-          gameBoard.renderValues(gameBoard.gameBoardArray);
-          game = !game;
-        }
-      });
-    }
-  }
-
-  playerMove();
-
   restartButton.addEventListener("click", function () {
     let allBlocksCleaned = document.querySelectorAll(".block");
     menuContainer.style.display = "flex";
