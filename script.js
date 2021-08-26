@@ -81,41 +81,46 @@ const displayController = (() => {
   //
   function checkWinner(arr) {
     if (arr[0] === "X" && arr[1] === "X" && arr[2] === "X") {
-      console.log("X WINS");
+      gameOver(`${playerOne.getName()}`);
     } else if (arr[3] === "X" && arr[4] === "X" && arr[5] === "X") {
-      console.log("X WINS");
+      gameOver(`${playerOne.getName()}`);
     } else if (arr[6] === "X" && arr[7] === "X" && arr[8] === "X") {
-      console.log("X WINS");
+      gameOver(`${playerOne.getName()}`);
     } else if (arr[0] === "X" && arr[3] === "X" && arr[6] === "X") {
-      console.log("X WINS");
+      gameOver(`${playerOne.getName()}`);
     } else if (arr[1] === "X" && arr[4] === "X" && arr[7] === "X") {
-      console.log("X WINS");
+      gameOver(`${playerOne.getName()}`);
     } else if (arr[2] === "X" && arr[5] === "X" && arr[8] === "X") {
-      console.log("X WINS");
+      gameOver(`${playerOne.getName()}`);
     } else if (arr[0] === "X" && arr[4] === "X" && arr[8] === "X") {
-      console.log("X WINS");
+      gameOver(`${playerOne.getName()}`);
     } else if (arr[2] === "X" && arr[4] === "X" && arr[6] === "X") {
-      console.log("X WINS");
+      gameOver(`${playerOne.getName()}`);
     } else if (arr[0] === "O" && arr[1] === "O" && arr[2] === "O") {
-      console.log("O WINS");
+      gameOver(`${playerTwo.getName()}`);
     } else if (arr[3] === "O" && arr[4] === "O" && arr[5] === "O") {
-      console.log("O WINS");
+      gameOver(`${playerTwo.getName()}`);
     } else if (arr[6] === "O" && arr[7] === "O" && arr[8] === "O") {
-      console.log("O WINS");
+      gameOver(`${playerTwo.getName()}`);
     } else if (arr[0] === "O" && arr[3] === "O" && arr[6] === "O") {
-      console.log("O WINS");
+      gameOver(`${playerTwo.getName()}`);
     } else if (arr[1] === "O" && arr[4] === "O" && arr[7] === "O") {
-      console.log("O WINS");
+      gameOver(`${playerTwo.getName()}`);
     } else if (arr[2] === "O" && arr[5] === "O" && arr[8] === "O") {
-      console.log("O WINS");
+      gameOver(`${playerTwo.getName()}`);
     } else if (arr[0] === "O" && arr[4] === "O" && arr[8] === "O") {
-      console.log("O WINS");
+      gameOver(`${playerTwo.getName()}`);
     } else if (arr[2] === "O" && arr[4] === "O" && arr[6] === "O") {
-      console.log("O WINS");
+      gameOver(`${playerTwo.getName()}`);
     }
   }
   //
-  function gameOver() {}
+  function gameOver(winnerPlayer) {
+    let winnerMessage = document.createElement("div");
+    gameContainer.appendChild(winnerMessage);
+    winnerMessage.classList.add("winningMessage");
+    winnerMessage.innerHTML = `The Winner is ${winnerPlayer} !!`;
+  }
   //
   playButton.addEventListener("click", function () {
     let inputOne = document.getElementById("input-one").value;
@@ -127,8 +132,8 @@ const displayController = (() => {
     menuContainer.style.display = "none";
     gameContainer.style.display = "flex";
     //
-    playerOne = createPlayer(`${inputOne} (X's)`, "X");
-    playerTwo = createPlayer(`${inputTwo} (0's)`, "O");
+    playerOne = createPlayer(`${inputOne} X's`, "X");
+    playerTwo = createPlayer(`${inputTwo} 0's`, "O");
     //
     playerOneName.textContent = `${playerOne.getName()}` || "Player One";
     playerTwoName.textContent = `${playerTwo.getName()}` || "Player Two";
@@ -140,18 +145,21 @@ const displayController = (() => {
   restartButton.addEventListener("click", function () {
     let allBlocksCleaned = document.querySelectorAll(".block");
     //
+    for (let i = 0; i < allBlocksCleaned.length; i++) {
+      let eachBlockCleaned = allBlocksCleaned[i];
+      eachBlockCleaned.innerHTML = "";
+    }
+    gameBoard.gameBoardArray = ["", "", "", "", "", "", "", "", ""];
+    //
     menuContainer.style.display = "flex";
     gameContainer.style.display = "none";
     //
     playerTwoName.classList.remove("currentTurn");
     //
-    gameBoard.gameBoardArray = ["", "", "", "", "", "", "", "", ""];
-    //
-    for (let i = 0; i < allBlocksCleaned.length; i++) {
-      let eachBlockCleaned = allBlocksCleaned[i];
-      eachBlockCleaned.innerHTML = "";
-    }
     game = false;
+    //
+    let deleteMessage = document.querySelector(".winningMessage");
+    gameContainer.removeChild(deleteMessage);
   });
   //
 

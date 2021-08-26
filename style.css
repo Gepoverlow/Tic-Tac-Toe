@@ -83,3 +83,7 @@ p {
   font-size: 50px;
   font-weight: bold;
 }
+
+.winningMessage {
+  font-size: 90px;
+}
