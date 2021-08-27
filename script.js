@@ -38,6 +38,7 @@ const gameBoard = (() => {
 
 const displayController = (() => {
   let game = false;
+  let over = true;
   //
   let allBlocks = document.querySelectorAll(".block");
   let playButton = document.getElementById("btn-play");
@@ -54,18 +55,21 @@ const displayController = (() => {
     for (let i = 0; i < allBlocks.length; i++) {
       let eachBlock = allBlocks[i];
       eachBlock.addEventListener("click", function () {
-        if (gameBoard.gameBoardArray[i] === "") {
-          gameBoard.gameBoardArray.splice(i, 1, game ? "O" : "X");
-          //
-          eachTurn();
-          checkWinner(gameBoard.gameBoardArray);
-          //
-          gameBoard.renderValues(gameBoard.gameBoardArray);
-          game = !game;
+        if (over) {
+          if (gameBoard.gameBoardArray[i] === "") {
+            gameBoard.gameBoardArray.splice(i, 1, game ? "O" : "X");
+            //
+            eachTurn();
+            checkWinner(gameBoard.gameBoardArray);
+            //
+            gameBoard.renderValues(gameBoard.gameBoardArray);
+            game = !game;
+          }
         }
       });
     }
   }
+  //
   playerMove();
   //
   function eachTurn() {
@@ -81,45 +85,68 @@ const displayController = (() => {
   //
   function checkWinner(arr) {
     if (arr[0] === "X" && arr[1] === "X" && arr[2] === "X") {
-      gameOver(`${playerOne.getName()}`);
+      gameOverWin(`${playerOne.getName()}`);
     } else if (arr[3] === "X" && arr[4] === "X" && arr[5] === "X") {
-      gameOver(`${playerOne.getName()}`);
+      gameOverWin(`${playerOne.getName()}`);
     } else if (arr[6] === "X" && arr[7] === "X" && arr[8] === "X") {
-      gameOver(`${playerOne.getName()}`);
+      gameOverWin(`${playerOne.getName()}`);
     } else if (arr[0] === "X" && arr[3] === "X" && arr[6] === "X") {
-      gameOver(`${playerOne.getName()}`);
+      gameOverWin(`${playerOne.getName()}`);
     } else if (arr[1] === "X" && arr[4] === "X" && arr[7] === "X") {
-      gameOver(`${playerOne.getName()}`);
+      gameOverWin(`${playerOne.getName()}`);
     } else if (arr[2] === "X" && arr[5] === "X" && arr[8] === "X") {
-      gameOver(`${playerOne.getName()}`);
+      gameOverWin(`${playerOne.getName()}`);
     } else if (arr[0] === "X" && arr[4] === "X" && arr[8] === "X") {
-      gameOver(`${playerOne.getName()}`);
+      gameOverWin(`${playerOne.getName()}`);
     } else if (arr[2] === "X" && arr[4] === "X" && arr[6] === "X") {
-      gameOver(`${playerOne.getName()}`);
+      gameOverWin(`${playerOne.getName()}`);
     } else if (arr[0] === "O" && arr[1] === "O" && arr[2] === "O") {
-      gameOver(`${playerTwo.getName()}`);
+      gameOverWin(`${playerTwo.getName()}`);
     } else if (arr[3] === "O" && arr[4] === "O" && arr[5] === "O") {
-      gameOver(`${playerTwo.getName()}`);
+      gameOverWin(`${playerTwo.getName()}`);
     } else if (arr[6] === "O" && arr[7] === "O" && arr[8] === "O") {
-      gameOver(`${playerTwo.getName()}`);
+      gameOverWin(`${playerTwo.getName()}`);
     } else if (arr[0] === "O" && arr[3] === "O" && arr[6] === "O") {
-      gameOver(`${playerTwo.getName()}`);
+      gameOverWin(`${playerTwo.getName()}`);
     } else if (arr[1] === "O" && arr[4] === "O" && arr[7] === "O") {
-      gameOver(`${playerTwo.getName()}`);
+      gameOverWin(`${playerTwo.getName()}`);
     } else if (arr[2] === "O" && arr[5] === "O" && arr[8] === "O") {
-      gameOver(`${playerTwo.getName()}`);
+      gameOverWin(`${playerTwo.getName()}`);
     } else if (arr[0] === "O" && arr[4] === "O" && arr[8] === "O") {
-      gameOver(`${playerTwo.getName()}`);
+      gameOverWin(`${playerTwo.getName()}`);
     } else if (arr[2] === "O" && arr[4] === "O" && arr[6] === "O") {
-      gameOver(`${playerTwo.getName()}`);
+      gameOverWin(`${playerTwo.getName()}`);
+    } else if (
+      arr[0] !== "" &&
+      arr[1] !== "" &&
+      arr[2] !== "" &&
+      arr[3] !== "" &&
+      arr[4] !== "" &&
+      arr[5] !== "" &&
+      arr[6] !== "" &&
+      arr[7] !== "" &&
+      arr[8] !== ""
+    ) {
+      gameOverTie();
     }
   }
   //
-  function gameOver(winnerPlayer) {
+  function gameOverTie() {
+    let tieMessage = document.createElement("div");
+    gameContainer.appendChild(tieMessage);
+    tieMessage.classList.add("gameOverMessage");
+    tieMessage.innerHTML = "Its a tie!";
+    //
+    over = false;
+  }
+  //
+  function gameOverWin(winnerPlayer) {
     let winnerMessage = document.createElement("div");
     gameContainer.appendChild(winnerMessage);
-    winnerMessage.classList.add("winningMessage");
+    winnerMessage.classList.add("gameOverMessage");
     winnerMessage.innerHTML = `The Winner is ${winnerPlayer} !!`;
+    //
+    over = false;
   }
   //
   playButton.addEventListener("click", function () {
@@ -157,8 +184,9 @@ const displayController = (() => {
     playerTwoName.classList.remove("currentTurn");
     //
     game = false;
+    over = true;
     //
-    let deleteMessage = document.querySelector(".winningMessage");
+    let deleteMessage = document.querySelector(".gameOverMessage");
     gameContainer.removeChild(deleteMessage);
   });
   //

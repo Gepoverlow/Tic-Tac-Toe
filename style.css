@@ -3,36 +3,58 @@
   margin: 0;
 }
 
-body,
-html {
+body {
   height: 100%;
-  background-color: grey;
+  background-color: lightgrey;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 p {
   margin-bottom: 10px;
 }
 
-.btn-play {
+@-webkit-keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#btn-play {
   height: 50px;
   width: 70px;
+  font-size: large;
 }
 
 .container-title {
   margin: 20px 20px 20px 20px;
-  font-size: 50px;
+  font-size: 3vw;
+  color: indianred;
+  animation: fade 1s;
 }
 
 .players {
   display: flex;
   justify-content: space-evenly;
-  width: 900px;
-  font-size: 30px;
+  min-width: 700px;
+  font-size: 20px;
+  color: indianred;
 }
 
 .container-all {
   height: 100%;
-  margin: 10px, 10px 10px, 10px;
+  margin: 10px 10px 10px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,21 +65,24 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: lightgreen;
+  background-color: indianred;
   height: 300px;
   width: 300px;
   border-radius: 10px;
+  border: 2px solid red;
   margin: 20px 20px 20px 20px;
+  animation: fade 1s;
 }
 
 .container-table {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  background-color: khaki;
-  height: 400px;
-  width: 400px;
+  min-width: 400px;
+  min-height: 400px;
   margin: 20px 20px 20px 20px;
+  border: 2px solid red;
+  animation: fade 1s;
 }
 
 .block {
@@ -65,8 +90,11 @@ p {
   align-items: center;
   justify-content: center;
   background-color: grey;
-  border: 2px solid black;
-  font-size: 100px;
+  border: 3px solid indianred;
+  font-size: 77px;
+  background-color: lightgray;
+  outline: none;
+  color: rgb(65, 62, 62);
 }
 
 .container-game {
@@ -80,10 +108,22 @@ p {
 } */
 
 .currentTurn {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: bold;
 }
 
-.winningMessage {
-  font-size: 90px;
+.gameOverMessage {
+  font-size: 4vw;
+  color: rgb(204, 36, 36);
+  animation: fade 1s;
+}
+
+.playerOne,
+.playerTwo {
+  font-size: 20px;
+}
+
+#input-one,
+#input-two {
+  font-size: 18px;
 }
